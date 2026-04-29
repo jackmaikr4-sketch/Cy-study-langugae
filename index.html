@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 英语学习多 Agent 系统</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">AI</span>
+          <div>
+            <strong>English Agent Studio</strong>
+            <small>AI-driven learning pipeline</small>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="页面导航">
+          <a href="#analyzer" class="active">用户分析</a>
+          <a href="#planner">学习规划</a>
+          <a href="#dialogue">口语对话</a>
+          <a href="#feedback">反馈评估</a>
+          <a href="#pipeline">部署闭环</a>
+        </nav>
+
+        <section class="agent-note" aria-label="系统状态">
+          <span class="status-dot"></span>
+          <p>长链推理 + 工具调用流程已就绪：输入解析、计划生成、Markdown 转换与 GitHub Pages 部署配置。</p>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Codex + Multi-Agent + GitHub Pages</p>
+            <h1>英语学习计划自动生成与反馈系统</h1>
+          </div>
+          <button class="ghost-button" id="copyMarkdown" type="button">复制 Markdown</button>
+        </header>
+
+        <section class="hero-panel" aria-label="项目概览">
+          <img
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=80"
+            alt="在线学习工作台"
+          />
+          <div class="hero-copy">
+            <p>系统由四个 Agent 协同完成从用户分析、动态计划、情景口语到阶段反馈的闭环，并将结构化学习数据转换为可部署页面。</p>
+            <div class="metric-row">
+              <span><strong>4</strong> Agents</span>
+              <span><strong>7/30</strong> 天计划</span>
+              <span><strong>JSON</strong> 转 Markdown</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="grid-two">
+          <article class="panel" id="analyzer">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Agent 01</p>
+                <h2>用户分析 Agent</h2>
+              </div>
+              <span class="pill">Input Parser</span>
+            </div>
+
+            <form class="profile-form" id="profileForm">
+              <label>
+                英语水平
+                <select id="level">
+                  <option value="A1">A1 入门</option>
+                  <option value="A2">A2 基础</option>
+                  <option value="B1" selected>B1 中级</option>
+                  <option value="B2">B2 中高级</option>
+                  <option value="C1">C1 高级</option>
+                </select>
+              </label>
+
+              <label>
+                目标国家
+                <select id="country">
+                  <option value="英国">英国</option>
+                  <option value="美国" selected>美国</option>
+                  <option value="加拿大">加拿大</option>
+                  <option value="澳大利亚">澳大利亚</option>
+                  <option value="新加坡">新加坡</option>
+                </select>
+              </label>
+
+              <label>
+                学习周期
+                <select id="cycle">
+                  <option value="7">7 天冲刺</option>
+                  <option value="30" selected>30 天强化</option>
+                </select>
+              </label>
+
+              <label>
+                每日时长
+                <input id="minutes" type="number" min="15" max="180" step="5" value="60" />
+              </label>
+
+              <label class="wide">
+                薄弱点描述
+                <textarea id="weakness" rows="4">口语表达不够自然，听力对连读和快速问答反应慢，词汇量需要覆盖出国生活与面试场景。</textarea>
+              </label>
+
+              <button class="primary-button" type="submit">生成结构化学习数据</button>
+            </form>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Realtime JSON</p>
+                <h2>AI 结构化输出</h2>
+              </div>
+              <span class="pill">JSON</span>
+            </div>
+            <pre class="json-output" id="jsonOutput" aria-live="polite"></pre>
+          </article>
+        </section>
+
+        <section class="panel" id="planner">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Agent 02</p>
+              <h2>学习规划 Agent</h2>
+            </div>
+            <div class="segmented" role="group" aria-label="计划展示方式">
+              <button type="button" class="active" data-view="plan">计划</button>
+              <button type="button" data-view="markdown">Markdown</button>
+            </div>
+          </div>
+
+          <div class="plan-grid" id="planGrid"></div>
+          <pre class="markdown-preview hidden" id="markdownPreview"></pre>
+        </section>
+
+        <section class="grid-two">
+          <article class="panel" id="dialogue">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Agent 03</p>
+                <h2>口语对话 Agent</h2>
+              </div>
+              <select id="scene">
+                <option value="daily">日常交流</option>
+                <option value="interview">面试问答</option>
+                <option value="abroad">出国场景</option>
+              </select>
+            </div>
+            <div class="dialogue-box" id="dialogueBox"></div>
+          </article>
+
+          <article class="panel" id="feedback">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">Agent 04</p>
+                <h2>反馈评估 Agent</h2>
+              </div>
+              <span class="pill">Adaptive</span>
+            </div>
+
+            <div class="checkin-grid">
+              <label><input type="checkbox" class="checkin" checked /> 完成口语跟读</label>
+              <label><input type="checkbox" class="checkin" checked /> 完成听力精听</label>
+              <label><input type="checkbox" class="checkin" /> 完成词汇复盘</label>
+              <label><input type="checkbox" class="checkin" /> 完成语法输出</label>
+            </div>
+
+            <label class="reflection-label">
+              今日输入
+              <textarea id="reflection" rows="5">今天能完成基础表达，但对追问反应慢，回答时会停顿。</textarea>
+            </label>
+
+            <button class="secondary-button" id="evaluate" type="button">生成阶段评估</button>
+            <div class="assessment" id="assessment"></div>
+          </article>
+        </section>
+
+        <section class="panel pipeline-panel" id="pipeline">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">Automation</p>
+              <h2>从需求理解到持续部署</h2>
+            </div>
+            <span class="pill">GitHub Actions</span>
+          </div>
+
+          <div class="pipeline">
+            <div><strong>用户输入</strong><span>水平、国家、周期、时长、弱项</span></div>
+            <div><strong>多 Agent 分析</strong><span>阶段识别与学习策略</span></div>
+            <div><strong>结构化 JSON</strong><span>任务、模块、评估规则</span></div>
+            <div><strong>Markdown 页面</strong><span>生成可提交学习计划</span></div>
+            <div><strong>GitHub 部署</strong><span>Actions 自动发布 Pages</span></div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
